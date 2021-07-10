@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Dot").Length < 1){
             SceneManager.LoadScene("Win");
         } else {
-            GameObject.Find("Score").GetComponent<Text>().text=GameObject.FindGameObjectsWithTag("Dot").Length + "개";
+            GameObject.Find("Score").GetComponent<Text>().text=GameObject.FindGameObjectsWithTag("Dot").Length + "개 남음";
         }
     }
     else if(this.gameObject.name=="Main Camera") {
