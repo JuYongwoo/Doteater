@@ -20,9 +20,14 @@ public class Spawner : MonoBehaviour
     {
         count+=Time.deltaTime;
         if(count>spawntime[spawncount]) {
-            Vector3 pos = new Vector3(spawnplace[Random.Range(0,3)].transform.position.x, spawnplace[Random.Range(0,3)].transform.position.z);
+            GameObject rand = spawnplace[Random.Range(0,3)];
+            Vector3 pos = new Vector3(rand.transform.position.x, 0, rand.transform.position.z);
             Instantiate(Enemy, pos, transform.rotation);
             spawncount += 1;
+        }
+        if(spawncount>=3) {
+            spawncount=0;
+            count=0;
         }
 
         
