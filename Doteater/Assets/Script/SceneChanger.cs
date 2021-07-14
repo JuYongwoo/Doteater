@@ -14,6 +14,7 @@ public class SceneChanger : MonoBehaviour
     {
         anim.SetBool("Win", gameWin);
         anim.SetBool("Lose", gameLose);
+        Screen.SetResolution(1600, 900, false);
     }
 
     // Update is called once per frame
