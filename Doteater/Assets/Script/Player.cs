@@ -9,18 +9,26 @@ public class Player : MonoBehaviour
 
     public float moveSpeed = 5f;
     public float rotationSpeed = 360f;
+    public float hp = 100.0f;
+    public float stamina = 100.0f;
+    float nowtime = 0.0f;
+    float thattime = 0.0f;
+    float staminacooltime = 0.0f;
+    public GameObject Faceobj;
 
     CharacterController charCtrl;
     Animator anim;
+    Animator anim2;
     // Start is called before the first frame update
     void Start()
     {
         charCtrl = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>(); //이 스크립트가 붙어있는 오브젝트의 자식 오브젝트에서 가져온다.
+        anim2 = Faceobj.GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(this.gameObject.name=="Player") {
         Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -38,13 +46,34 @@ public class Player : MonoBehaviour
             GameObject.Find("Score").GetComponent<Text>().text=GameObject.FindGameObjectsWithTag("Dot").Length + "개 남음";
         }
     }
-    else if(this.gameObject.name=="Main Camera") {
-        Vector3 playerposition = GameObject.Find("Player").transform.position;
-        GameObject.Find("Main Camera").transform.position = new Vector3(playerposition.x, playerposition.y+10, playerposition.z-5);
+
+        if(Input.GetButton("Fire3") && stamina >0)
+        {
+            moveSpeed = 10;
+            stamina -= Time.deltaTime * 30;
+            staminacooltime = 0.0f;
+        }
+        else
+        {
+            staminacooltime += Time.deltaTime;
+            moveSpeed = 5;
+            if(staminacooltime>2)
+            stamina += Time.deltaTime * 10;
+
+            if (stamina > 100)
+                stamina = 100;
+        }
+            nowtime += Time.deltaTime;
+
+        if (nowtime - thattime > 1)
+        {
+            anim2.SetBool("Damaged", false);
+
+        }
+        
 
     }
-    }
-    
+
     private void OnTriggerEnter(Collider other)
     {
         switch(other.tag)
@@ -53,7 +82,14 @@ public class Player : MonoBehaviour
                 Destroy(other.gameObject);
                 break;
             case "Enemy":
-                SceneManager.LoadScene("Lose");
+                thattime = nowtime;
+                hp -= 10;
+                if(hp<0)
+                {
+                    SceneManager.LoadScene("Lose");
+                }
+                anim2.SetBool("Damaged", true);
+
                 break;
         }
     }
