@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public float stamina = 100.0f;
     float nowtime = 0.0f;
     float thattime = 0.0f;
+    float hitcooltime = 0.0f;
     float staminacooltime = 0.0f;
     public GameObject Faceobj;
 
