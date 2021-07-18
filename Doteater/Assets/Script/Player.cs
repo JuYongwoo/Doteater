@@ -13,7 +13,9 @@ public class Player : MonoBehaviour
     public float stamina = 100.0f;
     float nowtime = 0.0f;
     float thattime = 0.0f;
-    float hitcooltime = 0.0f;
+    float sprinttime = 0.0f;
+    float sprintcooling = 3.0f;
+    public float sprintcooltime = 3.0f;
     float staminacooltime = 0.0f;
     public GameObject Faceobj;
 
@@ -26,6 +28,7 @@ public class Player : MonoBehaviour
         charCtrl = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>(); //이 스크립트가 붙어있는 오브젝트의 자식 오브젝트에서 가져온다.
         anim2 = Faceobj.GetComponent<Animator>();
+        anim2.SetBool("Damaged", false);
     }
 
     // Update is called once per frame
@@ -47,32 +50,59 @@ public class Player : MonoBehaviour
             GameObject.Find("Score").GetComponent<Text>().text=GameObject.FindGameObjectsWithTag("Dot").Length + "개 남음";
         }
     }
-
-        if(Input.GetButton("Fire3") && stamina >0)
+        //Shift키를 누를 경우
+        if(Input.GetKey(KeyCode.LeftShift))
         {
-            moveSpeed = 10;
-            stamina -= Time.deltaTime * 30;
-            staminacooltime = 0.0f;
+            if (stamina > 0)
+            {
+                moveSpeed = 10;
+                stamina -= Time.deltaTime * 30;
+                staminacooltime = 0.0f;
+            }
         }
         else
         {
-            staminacooltime += Time.deltaTime;
+            //Shift키를 누르지 않을시
             moveSpeed = 5;
-            if(staminacooltime>2)
+            staminacooltime += Time.deltaTime;
+            if(staminacooltime>1)
             stamina += Time.deltaTime * 10;
-
             if (stamina > 100)
                 stamina = 100;
         }
-            nowtime += Time.deltaTime;
 
+        //맞는 딜레이
         if (nowtime - thattime > 1)
         {
             anim2.SetBool("Damaged", false);
 
         }
-        
 
+
+        //Ctrl키를 누를 경우
+        if (Input.GetKeyDown(KeyCode.LeftControl) && sprintcooling > sprintcooltime)
+        {
+            sprinttime = nowtime;
+            anim.SetBool("Sprint", true);
+            Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            charCtrl.Move(dir * 5);
+            stamina -= 50;
+            staminacooltime = 0.0f;
+            sprintcooling = 0;
+
+        }
+        else
+        {
+            sprintcooling += Time.deltaTime;
+
+        }
+        //스프린트 모션 복구 딜레이
+        if (nowtime - sprinttime > 0.5)
+        {
+            anim.SetBool("Sprint", false);
+        }
+
+        nowtime += Time.deltaTime; //nowtime은 게임 시작 경과시간
     }
 
     private void OnTriggerEnter(Collider other)
@@ -83,13 +113,22 @@ public class Player : MonoBehaviour
                 Destroy(other.gameObject);
                 break;
             case "Enemy":
-                thattime = nowtime;
-                hp -= 10;
-                if(hp<0)
+                if (anim.GetBool("Sprint") == true)
                 {
-                    SceneManager.LoadScene("Lose");
+                    other.gameObject.SetActive(false);
                 }
-                anim2.SetBool("Damaged", true);
+                else
+                {
+
+                    thattime = nowtime;
+                    hp -= 10;
+                    if (hp < 0)
+                    {
+                        SceneManager.LoadScene("Lose");
+                    }
+                    anim2.SetBool("Damaged", true);
+
+                }
 
                 break;
         }

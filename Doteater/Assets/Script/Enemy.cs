@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        target = GameObject.Find("Player");
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>(); //플레이어에 썼던 애니메이션 넣어놨으므로 모션같음
     }
