@@ -23,4 +23,8 @@ public class SceneChanger : MonoBehaviour
         if (Input.GetButtonDown("Submit"))
             SceneManager.LoadScene(nextSceneName);
     }
+    public void nextscene()
+    {
+        SceneManager.LoadScene(nextSceneName);
+    }
 }

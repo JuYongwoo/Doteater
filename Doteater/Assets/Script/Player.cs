@@ -13,24 +13,34 @@ public class Player : MonoBehaviour
     public float stamina = 100.0f;
     float nowtime = 0.0f;
     float thattime = 0.0f;
-    float sprinttime = 0.0f;
     float sprinttime2 = 0.0f;
     bool sprinting = false;
     float sprintcooling = 3.0f;
     public float sprintcooltime = 3.0f;
     float staminacooltime = 0.0f;
     public GameObject Faceobj;
+    GameObject Enemyobj;
+    GameObject dyingenemy;
+    public AudioClip hitvoice;
+    public AudioClip dashvoice;
+    public AudioClip coinsound;
+    AudioSource voice;
+
 
     CharacterController charCtrl;
     Animator anim;
-    Animator anim2;
+    Animator Faceanim;
+    Animator Enemyanim;
     // Start is called before the first frame update
     void Start()
     {
         charCtrl = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>(); //이 스크립트가 붙어있는 오브젝트의 자식 오브젝트에서 가져온다.
-        anim2 = Faceobj.GetComponent<Animator>();
-        anim2.SetBool("Damaged", false);
+        Faceanim = Faceobj.GetComponent<Animator>();
+        Faceanim.SetBool("Damaged", false);
+        Enemyobj = GameObject.Find("Enemy");
+        Enemyanim = Enemyobj.GetComponentInChildren<Animator>();
+        voice = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -71,7 +81,7 @@ public class Player : MonoBehaviour
         //맞는 딜레이
         if (nowtime - thattime > 1)
         {
-            anim2.SetBool("Damaged", false);
+            Faceanim.SetBool("Damaged", false);
 
         }
 
@@ -95,7 +105,10 @@ public class Player : MonoBehaviour
 
         if(sprinttime2>nowtime && sprinting)
         {
+            voice.clip = dashvoice;
+            voice.Play();
             anim.SetBool("Sprint", true);
+            Faceanim.SetBool("Rushing", true);
             Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             charCtrl.Move(dir * 8 * Time.deltaTime);
         }
@@ -109,6 +122,7 @@ public class Player : MonoBehaviour
         if (sprinttime2<nowtime)
         {
             anim.SetBool("Sprint", false);
+            Faceanim.SetBool("Rushing", false);
         }
 
 
@@ -118,30 +132,43 @@ public class Player : MonoBehaviour
             stamina = 0;
 
         nowtime += Time.deltaTime; //nowtime은 게임 시작 경과시간
+        
+
+
+    }
+    void Enemydie()
+    {
+        dyingenemy.SetActive(false);
     }
 
-    private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other)
     {
         switch(other.tag)
         {
             case "Dot":
+                voice.clip = coinsound;
+                voice.Play();
                 Destroy(other.gameObject);
                 break;
             case "Enemy":
                 if (anim.GetBool("Sprint") == true)
                 {
-                    other.gameObject.SetActive(false);
+                    Enemyanim.SetBool("GetHit", true);
+                    dyingenemy = other.gameObject;
+                    Invoke("Enemydie", 0.7f);
                 }
                 else
                 {
 
+                    voice.clip = hitvoice;
+                    voice.Play();
                     thattime = nowtime;
                     hp -= 10;
                     if (hp < 0)
                     {
                         SceneManager.LoadScene("Lose");
                     }
-                    anim2.SetBool("Damaged", true);
+                    Faceanim.SetBool("Damaged", true);
 
                 }
 
