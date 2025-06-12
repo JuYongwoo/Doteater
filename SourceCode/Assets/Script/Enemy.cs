@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public GameObject target;
+    [SerializeField]
+    GameObject target;
     NavMeshAgent agent; //NavMeshAgent 컴포넌트 선언
     Animator anim;
     // Start is called before the first frame update

@@ -7,8 +7,10 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
 
-    public float moveSpeed = 5f;
-    public float rotationSpeed = 360f;
+    [SerializeField]
+    float moveSpeed = 5f;
+    [SerializeField]
+    float rotationSpeed = 360f;
     public float hp = 100.0f;
     public float stamina = 100.0f;
     float nowtime = 0.0f;
@@ -16,14 +18,19 @@ public class Player : MonoBehaviour
     float sprinttime2 = 0.0f;
     bool sprinting = false;
     float sprintcooling = 3.0f;
-    public float sprintcooltime = 3.0f;
+    [SerializeField]
+    float sprintcooltime = 3.0f;
     float staminacooltime = 0.0f;
-    public GameObject Faceobj;
+    [SerializeField]
+    GameObject Faceobj;
     GameObject Enemyobj;
     GameObject dyingenemy;
-    public AudioClip hitvoice;
-    public AudioClip dashvoice;
-    public AudioClip coinsound;
+    [SerializeField]
+    AudioClip hitvoice;
+    [SerializeField]
+    AudioClip dashvoice;
+    [SerializeField]
+    AudioClip coinsound;
     AudioSource voice;
 
 

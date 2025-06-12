@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class HpStamina : MonoBehaviour
 {
-    public GameObject HPbarObj;
-    public GameObject StaminabarObj;
+    [SerializeField]
+    GameObject HPbarObj;
+    [SerializeField]
+    GameObject StaminabarObj;
     float nowhp;
     float nowstamina;
     Slider HPbar;

@@ -7,8 +7,10 @@ namespace UnityChan
 	{
 		public AnimationClip[] animations;
 		Animator anim;
-		public float delayWeight;
-		public bool isKeepFace = false;
+        [SerializeField]
+        float delayWeight;
+        [SerializeField]
+        bool isKeepFace = false;
 
 		void Start ()
 		{
