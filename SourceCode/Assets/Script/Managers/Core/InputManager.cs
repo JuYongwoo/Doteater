@@ -6,7 +6,8 @@ using UnityEngine.EventSystems;
 
 public class InputManager
 {
-    public Action KeyAction = null;
+    public Action ConfirmKeyAction = null;
+    public Action RunKeyAction = null;
     public Action<Define.MouseEvent> MouseAction = null;
 
     bool _pressed = false;
@@ -14,11 +15,14 @@ public class InputManager
 
     public void OnUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.Return) && ConfirmKeyAction != null)
+            ConfirmKeyAction.Invoke();
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && RunKeyAction != null)
+            RunKeyAction.Invoke();
+
         if (EventSystem.current.IsPointerOverGameObject())
             return;
-
-        if (Input.anyKey && KeyAction != null)
-				KeyAction.Invoke();
 
         if (MouseAction != null)
         {
@@ -48,7 +52,8 @@ public class InputManager
 
     public void Clear()
     {
-        KeyAction = null;
+        ConfirmKeyAction = null;
+        RunKeyAction = null;
         MouseAction = null;
     }
 }

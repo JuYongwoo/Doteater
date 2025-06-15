@@ -7,10 +7,6 @@ public class SoundManager
     AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.MaxCount];
     Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>();
 
-    // MP3 Player   -> AudioSource
-    // MP3 음원     -> AudioClip
-    // 관객(귀)     -> AudioListener
-
     public void Init()
     {
         GameObject root = GameObject.Find("@Sound");
@@ -41,8 +37,10 @@ public class SoundManager
         _audioClips.Clear();
     }
 
+    
     public void Play(string path, Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)
     {
+        //특수하게 소리를 재생할 일이 있으면 이 함수를 사용
         AudioClip audioClip = GetOrAddAudioClip(path, type);
         Play(audioClip, type, pitch);
     }
@@ -79,13 +77,13 @@ public class SoundManager
 
 		if (type == Define.Sound.Bgm)
 		{
-			audioClip = Managers.Resource.Load<AudioClip>(path);
+			audioClip = ManagerObject.Resource.Load<AudioClip>(path);
 		}
 		else
 		{
 			if (_audioClips.TryGetValue(path, out audioClip) == false)
 			{
-				audioClip = Managers.Resource.Load<AudioClip>(path);
+				audioClip = ManagerObject.Resource.Load<AudioClip>(path);
 				_audioClips.Add(path, audioClip);
 			}
 		}

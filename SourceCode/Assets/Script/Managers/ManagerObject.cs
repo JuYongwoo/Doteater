@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Managers : MonoBehaviour
+public class ManagerObject : MonoBehaviour
 {
-    static Managers s_instance; // 유일성이 보장된다
-    static Managers Instance { get { Init(); return s_instance; } } // 유일한 매니저를 갖고온다
+    static ManagerObject s_instance; // 유일성이 보장된다
+    static ManagerObject Instance { get { Init(); return s_instance; } } // 유일한 매니저를 갖고온다
 
 
 	#region Core
@@ -40,11 +40,11 @@ public class Managers : MonoBehaviour
             if (go == null)
             {
                 go = new GameObject { name = "@Managers" };
-                go.AddComponent<Managers>();
+                go.AddComponent<ManagerObject>();
             }
 
             DontDestroyOnLoad(go);
-            s_instance = go.GetComponent<Managers>();
+            s_instance = go.GetComponent<ManagerObject>();
 
             s_instance._pool.Init();
             s_instance._sound.Init();
@@ -55,7 +55,6 @@ public class Managers : MonoBehaviour
     {
         Input.Clear();
         Sound.Clear();
-        Scene.Clear();
         Pool.Clear();
     }
 }

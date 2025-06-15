@@ -24,7 +24,7 @@ public class Spawner : MonoBehaviour
     {
         count+=Time.deltaTime;
         if(count>spawntime[spawncount]) {
-            GameObject go = Managers.Resource.Instantiate("enemy");
+            GameObject go = ManagerObject.Resource.Instantiate("enemy");
             Vector3 rd_position = spawnplace[Random.Range(0,3)].transform.position;
             go.transform.position = rd_position; 
             

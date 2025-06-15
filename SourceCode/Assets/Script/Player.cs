@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
         anim.SetFloat("Speed", charCtrl.velocity.magnitude); // Speed라는 이름의 float에 velocity.magnitude를 set한다.
 
         if (GameObject.FindGameObjectsWithTag("Dot").Length < 1){
-            SceneManager.LoadScene("Win");
+                ManagerObject.Scene.LoadScene(Define.Scene.Win);
         } else {
             GameObject.Find("Score").GetComponent<Text>().text=GameObject.FindGameObjectsWithTag("Dot").Length + "개 남음";
         }
@@ -173,7 +173,7 @@ public class Player : MonoBehaviour
                     hp -= 10;
                     if (hp < 0)
                     {
-                        SceneManager.LoadScene("Lose");
+                        ManagerObject.Scene.LoadScene(Define.Scene.Lose);
                     }
                     Faceanim.SetBool("Damaged", true);
 
