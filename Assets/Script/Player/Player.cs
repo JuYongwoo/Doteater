@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEditor.Animations;
 
 public class Player : MonoBehaviour
 {
@@ -22,10 +23,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     float sprintcooltime = 3.0f;
     float staminacooltime = 0.0f;
-    [SerializeField]
-    GameObject Faceobj;
-    GameObject Enemyobj;
-    GameObject dyingenemy;
     [SerializeField]
     AudioClip hitvoice;
     [SerializeField]
@@ -48,14 +45,17 @@ public class Player : MonoBehaviour
     static public event Action<float> refreshStaminaBar;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         charCtrl = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>(); //이 스크립트가 붙어있는 오브젝트의 자식 오브젝트에서 가져온다.
-        Faceanim = Faceobj.GetComponent<Animator>();
+
+        Faceanim = gameObject.GetComponent<Animator>();
+        if (Faceanim == null)
+            Faceanim = gameObject.AddComponent<Animator>();
+        Faceanim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animations/Face");
+        if (Resources.Load<RuntimeAnimatorController>("Animations/Face") == null) Debug.Log("SAFSADSDASADFDS");
         Faceanim.SetBool("Damaged", false);
-        Enemyobj = GameObject.Find("Enemy");
-        Enemyanim = Enemyobj.GetComponentInChildren<Animator>();
         voice = GetComponent<AudioSource>();
     }
 

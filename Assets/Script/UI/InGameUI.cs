@@ -11,7 +11,8 @@ public class InGameUI : MonoBehaviour
         HP,
         Stamina,
         Remaining,
-        Mission
+        Mission,
+        HowToPlay
     }
     private Dictionary<UIName, GameObject> UIMap;
 
@@ -39,10 +40,18 @@ public class InGameUI : MonoBehaviour
             {
                 UIMap.Add(UIName.Mission, t.gameObject);
             }
+            if(t.name == "HowToPlay")
+            {
+                UIMap.Add(UIName.HowToPlay, t.gameObject);
+            }
 
         }
 
         mapping();
+
+        UIMap[UIName.HowToPlay].SetActive(true);
+        Time.timeScale = 0;
+
     }
     private void mapping()
     {
@@ -56,7 +65,7 @@ public class InGameUI : MonoBehaviour
             UIMap[UIName.Stamina].GetComponent<Slider>().value = stm / 100;
         };
 
-        InGameChapter.refreshUI += (coincount) =>
+        InGameManager.refreshUI += (coincount) =>
         {
             if (coincount < 1)
             {
@@ -73,6 +82,10 @@ public class InGameUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (UIMap[UIName.HowToPlay].activeSelf && Input.GetButtonDown("Submit"))
+        {
+            Time.timeScale = 1;
+            UIMap[UIName.HowToPlay].SetActive(false);
+        }
     }
 }
