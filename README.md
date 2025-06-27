@@ -8,7 +8,9 @@
 ## 스크립트 구조
 
 ```
-├── Chapter                    # 챕터별 고유 이벤트 관리
+├── Scenes                    # 챕터별 고유 이벤트 관리
+│   ├── WinSceneManager
+│   ├── LoseSceneManager
 │   └── InGameManager
 │
 ├── Enemy                      # 적 행동 스크립트
