@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InGameUI : MonoBehaviour
@@ -74,7 +75,7 @@ public class InGameUI : MonoBehaviour
         {
             if (coincount < 1)
             {
-                ManagerObject.Scene.LoadScene(Define.Scene.Win);
+                SceneManager.LoadScene("Win");
             }
             else
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class WinSceneManager : MonoBehaviour
 {
@@ -16,6 +17,6 @@ public class WinSceneManager : MonoBehaviour
 
     void Regame()
     {
-        ManagerObject.Scene.LoadScene(Define.Scene.Title);
+        SceneManager.LoadScene("Title");
     }
 }

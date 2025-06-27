@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class LoseSceneManager : MonoBehaviour
 {
@@ -16,6 +17,6 @@ public class LoseSceneManager : MonoBehaviour
 
     void Regame()
     {
-        ManagerObject.Scene.LoadScene(Define.Scene.Title);
+        SceneManager.LoadScene("Title");
     }
 }

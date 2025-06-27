@@ -158,7 +158,7 @@ public class Player : MonoBehaviour
         hp -= 10;
         if (hp < 0)
         {
-            ManagerObject.Scene.LoadScene(Define.Scene.Lose);
+            SceneManager.LoadScene("Lose");
         }
         Faceanim.SetBool("Damaged", true);
 
