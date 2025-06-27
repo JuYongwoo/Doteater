@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,7 +15,7 @@ public class Enemy : MonoBehaviour
     {
         target = GameObject.Find("Player");
         agent = GetComponent<NavMeshAgent>();
-        anim = GetComponentInChildren<Animator>(); //플레이어에 썼던 애니메이션 넣어놨으므로 모션같음
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -22,5 +23,17 @@ public class Enemy : MonoBehaviour
     {
         agent.destination = target.transform.position;//agent의 목적지는 target의 트랜스폼
         anim.SetFloat("Speed", agent.velocity.magnitude);
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+        if(other.tag == "Player"){
+            Player player = other.GetComponent<Player>();
+
+
+            player.getDamaged();
+        }
     }
 }

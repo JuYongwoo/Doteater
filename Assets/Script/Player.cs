@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class Player : MonoBehaviour
 {
@@ -36,8 +37,16 @@ public class Player : MonoBehaviour
 
     CharacterController charCtrl;
     Animator anim;
-    Animator Faceanim;
+    public Animator Faceanim;
     Animator Enemyanim;
+
+
+
+
+
+    static public event Action<float> refreshHPBar;
+    static public event Action<float> refreshStaminaBar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -63,11 +72,7 @@ public class Player : MonoBehaviour
         charCtrl.SimpleMove(dir * moveSpeed * 50 * Time.deltaTime);
         anim.SetFloat("Speed", charCtrl.velocity.magnitude); // Speed라는 이름의 float에 velocity.magnitude를 set한다.
 
-        if (GameObject.FindGameObjectsWithTag("Dot").Length < 1){
-                ManagerObject.Scene.LoadScene(Define.Scene.Win);
-        } else {
-            GameObject.Find("Score").GetComponent<Text>().text=GameObject.FindGameObjectsWithTag("Dot").Length + "개 남음";
-        }
+
     }
         //Shift키를 누를 경우
         if(Input.GetKey(KeyCode.LeftShift) && stamina >0)
@@ -139,48 +144,26 @@ public class Player : MonoBehaviour
             stamina = 0;
 
         nowtime += Time.deltaTime; //nowtime은 게임 시작 경과시간
-        
 
+
+
+
+        refreshStaminaBar(stamina);
 
     }
-    void Enemydie()
-    {
-        dyingenemy.SetActive(false);
-    }
 
-        private void OnTriggerEnter(Collider other)
+    public void getDamaged()
     {
-        switch(other.tag)
+
+        hp -= 10;
+        if (hp < 0)
         {
-            case "Dot":
-                voice.clip = coinsound;
-                voice.Play();
-                Destroy(other.gameObject);
-                break;
-            case "Enemy":
-                if (anim.GetBool("Sprint") == true)
-                {
-                    Enemyanim.SetBool("GetHit", true);
-                    dyingenemy = other.gameObject;
-                    Invoke("Enemydie", 0.7f);
-                }
-                else
-                {
-
-                    voice.clip = hitvoice;
-                    voice.Play();
-                    thattime = nowtime;
-                    hp -= 10;
-                    if (hp < 0)
-                    {
-                        ManagerObject.Scene.LoadScene(Define.Scene.Lose);
-                    }
-                    Faceanim.SetBool("Damaged", true);
-
-                }
-
-                break;
+            ManagerObject.Scene.LoadScene(Define.Scene.Lose);
         }
+        Faceanim.SetBool("Damaged", true);
+
+        refreshHPBar(hp);
     }
+
 
 }
