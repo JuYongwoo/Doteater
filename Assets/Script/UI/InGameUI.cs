@@ -20,11 +20,22 @@ public class InGameUI : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        childsmapping();
+        
+
+        mapping();
+
+        UIMap[UIName.HowToPlay].SetActive(true);
+        Time.timeScale = 0;
+
+    }
+    private void childsmapping()
+    {
         UIMap = new Dictionary<UIName, GameObject>();
 
-        foreach(Transform t in GetComponentsInChildren<Transform>())
+        foreach (Transform t in GetComponentsInChildren<Transform>())
         {
-            if(t.name == "HPBar")
+            if (t.name == "HPBar")
             {
                 UIMap.Add(UIName.HP, t.gameObject);
             }
@@ -40,18 +51,12 @@ public class InGameUI : MonoBehaviour
             {
                 UIMap.Add(UIName.Mission, t.gameObject);
             }
-            if(t.name == "HowToPlay")
+            if (t.name == "HowToPlay")
             {
                 UIMap.Add(UIName.HowToPlay, t.gameObject);
             }
 
         }
-
-        mapping();
-
-        UIMap[UIName.HowToPlay].SetActive(true);
-        Time.timeScale = 0;
-
     }
     private void mapping()
     {
