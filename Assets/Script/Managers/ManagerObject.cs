@@ -22,6 +22,8 @@ public class ManagerObject : MonoBehaviour
 
 	void Start()
     {
+        Screen.SetResolution(1600, 900, false);
+
         Init();
 	}
 
