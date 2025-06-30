@@ -6,14 +6,14 @@ using UnityEngine.UI;
 
 public class TitleUI : MonoBehaviour
 {
-    public enum UIs
+    private enum UIs
     {
         Start,
         Settings,
         Quit
     }
 
-    Dictionary<UIs, GameObject> TitleMap;
+    private Dictionary<UIs, GameObject> TitleMap;
 
 
     private void Awake()

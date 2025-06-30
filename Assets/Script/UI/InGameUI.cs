@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class InGameUI : MonoBehaviour
 {
 
-    public enum UIName
+    private enum UIName
     {
         HP,
         Stamina,

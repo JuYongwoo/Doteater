@@ -8,25 +8,25 @@ using System;
 public class Player : MonoBehaviour
 {
 
-    const float movespeedconst = 5f;
-    float movespeedbonus = 0f;
-    const float rotationSpeed = 360f;
-    public float hp = 100.0f;
-    public float stamina = 100.0f;
-    bool issprinting = false;
-    bool issprintready = true;
+    private const float movespeedconst = 5f;
+    private float movespeedbonus = 0f;
+    private const float rotationSpeed = 360f;
+    private float hp = 100.0f;
+    private float stamina = 100.0f;
+    private bool issprinting = false;
+    private bool issprintready = true;
 
     [SerializeField]
-    AudioClip hitvoice;
+    private AudioClip hitvoice;
     [SerializeField]
-    AudioClip dashvoice;
+    private AudioClip dashvoice;
     [SerializeField]
-    AudioClip coinsound;
-    AudioSource voice;
+    private AudioClip coinsound;
+    private AudioSource voice;
 
 
-    CharacterController charCtrl;
-    Animator anim;
+    private CharacterController charCtrl;
+    private Animator anim;
     static public event Action facedamaged;
 
     static public event Action<float> refreshHPBar;

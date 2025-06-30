@@ -6,21 +6,17 @@ using UnityEngine.XR;
 public class Spawner : MonoBehaviour
 {
     [SerializeField]
-    GameObject Enemy;
-    float count = 0;
+    private GameObject Enemy;
+    private float count = 0;
     [SerializeField]
-    float[] spawntime = new float[10];
-    int spawncount = 0;
+    private float[] spawntime = new float[10];
+    private int spawncount = 0;
     [SerializeField]
-    GameObject[] spawnplace = new GameObject[3];
+    private GameObject[] spawnplace = new GameObject[3];
     // Start is called before the first frame update
-    void Start()
-    {   
-        
-    }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         count+=Time.deltaTime;
         if(count>spawntime[spawncount]) {

@@ -6,7 +6,7 @@ public class Teleport : MonoBehaviour
 {
     public GameObject A;
     public GameObject B;
-    float countdown = 3.0f;
+    private float countdown = 3.0f;
     // Start is called before the first frame update
     void Start()
     {
