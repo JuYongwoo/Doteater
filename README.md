@@ -26,13 +26,12 @@
 │   │   ├── InputManager
 │   │   ├── Poolable
 │   │   ├── PoolManager
-│   │   ├── ResourceManager
-│   │   ├── SceneManagerEx
-│   │   └── SoundManager
+│   │   └── ResourceManager
 │   └── ManagerObject
 │
 ├── Player                     # 플레이어 관련 스크립트
 │   ├── Player
+│   ├── PlayerFace
 │   └── CameraMove
 │
 └── UI                         # UI 캔버스 및 컨트롤러
