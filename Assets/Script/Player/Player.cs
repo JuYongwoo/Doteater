@@ -1,12 +1,13 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 
 public class Player : MonoBehaviour
 {
+    [HideInInspector]
+    public bool canWarp = true;
+
 
     private const float movespeedconst = 5f;
     private float movespeedbonus = 0f;
@@ -39,6 +40,9 @@ public class Player : MonoBehaviour
         anim = GetComponentInChildren<Animator>(); //이 스크립트가 붙어있는 오브젝트의 자식 오브젝트에서 가져온다.
 
         voice = GetComponent<AudioSource>();
+
+        canWarp = true;
+        Teleport.warpOn += setWarpAble;
     }
 
     // Update is called once per frame
@@ -61,6 +65,11 @@ public class Player : MonoBehaviour
 
         refreshStaminaBar(stamina);
 
+    }
+
+    private void setWarpAble(bool OnOff)
+    {
+        canWarp = OnOff;
     }
 
     private void charactermove(Vector3 dir)

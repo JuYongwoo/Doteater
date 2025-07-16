@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ManagerObject : MonoBehaviour
 {
-    static ManagerObject s_instance; // 유일성이 보장된다
-    static ManagerObject Instance { get { Init(); return s_instance; } } // 유일한 매니저를 갖고온다
+    static ManagerObject s_instance;
+    static ManagerObject Instance { get { Init(); return s_instance; } }
 
 
     #region Core

@@ -572,8 +572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407258bd6d4ea7b428da617abb84173b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  A: {fileID: 1286169007}
-  B: {fileID: 531786961}
+  destination: {fileID: 1286169007}
 --- !u!1 &634374964
 GameObject:
   m_ObjectHideFlags: 0
@@ -1158,8 +1157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407258bd6d4ea7b428da617abb84173b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  A: {fileID: 1286169007}
-  B: {fileID: 531786961}
+  destination: {fileID: 531786961}
 --- !u!1 &1408489377
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,8 +1324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407258bd6d4ea7b428da617abb84173b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  A: {fileID: 1511004627}
-  B: {fileID: 1922400887}
+  destination: {fileID: 1922400887}
 --- !u!1 &1529960507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1824,8 +1821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407258bd6d4ea7b428da617abb84173b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  A: {fileID: 1734504091}
-  B: {fileID: 2080547773}
+  destination: {fileID: 2080547773}
 --- !u!65 &1913387428
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1932,8 +1928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407258bd6d4ea7b428da617abb84173b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  A: {fileID: 1511004627}
-  B: {fileID: 1922400887}
+  destination: {fileID: 1511004627}
 --- !u!1001 &1943773841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2182,8 +2177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407258bd6d4ea7b428da617abb84173b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  A: {fileID: 1734504091}
-  B: {fileID: 2080547773}
+  destination: {fileID: 1734504091}
 --- !u!1001 &1314372003285344183
 PrefabInstance:
   m_ObjectHideFlags: 0

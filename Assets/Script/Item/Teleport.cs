@@ -1,43 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class Teleport : MonoBehaviour
 {
-    public GameObject A;
-    public GameObject B;
-    private float countdown = 3.0f;
-    // Start is called before the first frame update
-    void Start()
+    public GameObject destination;
+    static public event Action<bool> warpOn;
+
+
+    private void OnTriggerEnter(Collider col)
     {
+        if (col.tag == "Player")
+        {
+            if (col.gameObject.GetComponent<Player>().canWarp)
+            {
+                col.gameObject.SetActive(false); // 순간적으로 껐다 켜줘야 이동에 문제가 없음
+
+                col.transform.position = new Vector3(destination.transform.position.x, col.transform.position.y, destination.transform.position.z);
+
+                col.gameObject.SetActive(true);
+                StartCoroutine(warpOnCoroutine());
+
+            }
+
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator warpOnCoroutine()
     {
-        countdown += Time.deltaTime;   
-    }
-    
-    private void OnTriggerEnter(Collider col)
-    { 
-        if (col.name == "Player" && countdown > 3 && name == A.name)
-        {
-            col.gameObject.SetActive(false);
-            col.transform.position = new Vector3( B.transform.position.x , col.transform.position.y,B.transform.position.z);
-            Debug.Log("A에서 B로 이동");
-            col.gameObject.SetActive(true);
-            A.GetComponent<Teleport>().countdown = 0;
-            B.GetComponent<Teleport>().countdown = 0;
-        }
-        else if (col.name == "Player" && countdown > 3 && name == B.name)
-        {
-            col.gameObject.SetActive(false);
-            col.transform.position = new Vector3(A.transform.position.x, col.transform.position.y, A.transform.position.z);
-            Debug.Log("B에서 A로 이동");
-            col.gameObject.SetActive(true);
-            A.GetComponent<Teleport>().countdown = 0;
-            B.GetComponent<Teleport>().countdown = 0;
-        }
+        warpOn(false);
+        yield return new WaitForSeconds(3f);
+        warpOn(true);
 
     }
 }
